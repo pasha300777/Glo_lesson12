@@ -6,7 +6,6 @@ todoList = document.querySelector('.todo-list'),
 todoCompleted = document.querySelector('.todo-completed'),
 todoRemove = document.querySelector('.todo-remove');
 
-
 console.log(todoRemove);
 console.log(todoCompleted);
 const todoData =[];
