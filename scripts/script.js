@@ -13,30 +13,33 @@ const todoData =[];
 const render = function(){
   todoList.textContent = '';
   todoCompleted.textContent = '';
-
+  
   todoData.forEach(function(item){
     const li = document.createElement('li');
-    
-    if(headerInput.value !== '' && headerInput.value !== ' '){
-      li.classList.add('todo-item');
-    }
+    li.classList.add('todo-item');
     li.innerHTML = '<span class="text-todo">' + item.value + '</span>' + 
       '<div class="todo-buttons">' + 
       '<button class="todo-remove"></button>' + 
       '<button class="todo-complete"></button>' + 
       '</div>';
-    
+
+    headerInput.value = '';
+
     if(item.completed){
       todoCompleted.append(li);
     }else{
       todoList.append(li);
     }
+    
+    const btnTodoRemove = li.querySelector('.todo-remove');
 
-    // todoRemove.addEventListener('click', function(){
-    //   // todoList.style.display = 'none';
-    //   console.log(todoRemove);
-    //   render();
-    // })
+    btnTodoRemove.addEventListener('click', function(){
+      todoData.remove(item);
+      // li.classList.remove('todo-item');
+      // li.style.display = 'none';
+      // console.log(todoRemove);
+      // render();
+    })
 
     const btnTodoComplete = li.querySelector('.todo-complete');
 
@@ -47,18 +50,26 @@ const render = function(){
   });
 };
 
+const showText = function(){
+  todoList.textContent = localStorage.myText;
+};
+
+
+
 todoControl.addEventListener('submit',function(event){
   event.preventDefault();
+  if(headerInput.value !== '' && headerInput.value !== ' '){
+    const newTodo = {
+      value: headerInput.value,
+      completed: false,
+      remove: false,
 
-  const newTodo = {
-    value: headerInput.value,
-    completed: false,
-  }
+    }
   
   todoData.push(newTodo);
+}
   render();
 });
 
 render();
-// incomePlus.style.display = 'none';
-// if(itemIncome !== '' && cashIncome !== '')
+
